@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bot Verification (Unofficial)</title>
+
+  <!-- Updated favicon -->
+  <link rel="icon" type="image/png" href="CopyRightSign-UnOffical_Tool.png">
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      max-width: 420px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-size: 2.2rem;
+      letter-spacing: 1.2px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    #submitBtn {
+      margin-top: 20px;
+      padding: 14px 40px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 30px;
+      background-color: #ff4757;
+      color: white;
+      cursor: not-allowed;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    #submitBtn.enabled {
+      background-color: #2ed573;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(46, 213, 115, 0.6);
+    }
+
+    #message {
+      margin-top: 20px;
+      font-weight: 600;
+      font-size: 1rem;
+      min-height: 1.2em;
+    }
+
+    .disclaimer {
+      margin-top: 25px;
+      font-size: 0.9rem;
+      color: #ddd;
+    }
+
+    .disclaimer a {
+      color: #ccc;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 25px;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      #submitBtn {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bot Verification Test</h1>
+    <p>This is a fan-made reCAPTCHA test page. Completing the CAPTCHA will redirect you to roblox.com.</p>
+
+    <form id="recaptchaForm">
+      <div class="g-recaptcha" data-sitekey="6LeXINArAAAAALax6Vfv_R4KXJAjw091vjRFohBe" data-callback="recaptchaCallback"></div>
+      <button id="submitBtn" type="submit" disabled>Go to Roblox</button>
+    </form>
+
+    <div id="message"></div>
+
+    <div class="disclaimer">
+      <p>This project is not affiliated with or endorsed by Roblox Corporation.</p>
+      <p>No login information is requested or stored. For educational/testing purposes only.</p>
+      <p><a href="https://github.com/ControllableRobloxBot/ControllableRobloxBot.github.io" target="_blank">View source on GitHub</a></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('recaptchaForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const message = document.getElementById('message');
+
+    function recaptchaCallback() {
+      submitBtn.disabled = false;
+      submitBtn.classList.add('enabled');
+      message.textContent = '';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const response = grecaptcha.getResponse();
+      if (!response || response.length === 0) {
+        message.style.color = '#ff6b6b';
+        message.textContent = 'Please complete the reCAPTCHA.';
+        return;
+      }
+      message.style.color = '#2ed573';
+      message.textContent = 'Verification successful! Redirecting...';
+      submitBtn.disabled = true;
+      submitBtn.classList.remove('enabled');
+      setTimeout(() => {
+        window.location.href = 'https://www.roblox.com';
+      }, 1800);
+    });
+  </script>
+</body>
+</html>
